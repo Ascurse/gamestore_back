@@ -1,4 +1,3 @@
-from distutils.command.upload import upload
 from django.db import models
 
 
@@ -10,6 +9,11 @@ class Genre(models.Model):
     slug = models.SlugField(
         unique=True,
         verbose_name='url-адрес жанра',
+    )
+    color = models.CharField(
+        max_length=20,
+        verbose_name='Цвет категории',
+        default='#red'
     )
 
     class Meta:
@@ -45,6 +49,10 @@ class Game(models.Model):
         verbose_name="Game Image",
         upload_to='games/',
         blank=True
+    )
+    price = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Game Price',
     )
 
     def __str__(self):
