@@ -8,7 +8,9 @@ All games ('api/v1/games) have the following fields:
 - description
 - genre
 - price
+
 You can choose multiple genres for one game.
+
 Genres should be created at 'api/v1/genres'
 
 ### Tech
