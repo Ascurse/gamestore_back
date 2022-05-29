@@ -50,6 +50,11 @@ class Game(models.Model):
         upload_to='games/',
         blank=True
     )
+    video = models.CharField(
+        verbose_name='Game Video',
+        max_length=500,
+        blank=True
+    )
     price = models.PositiveIntegerField(
         default=0,
         verbose_name='Game Price',
