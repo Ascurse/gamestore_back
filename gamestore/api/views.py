@@ -2,8 +2,9 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters, viewsets
 
 from .filters import GamesFilter
-from .models import Game, Genre
-from .serializers import GameCreateSerializer, GameSerializer, GenreSerializer
+from .models import Game, Genre, News
+from .serializers import (GameCreateSerializer, GameSerializer,
+                          GenreSerializer, NewsSerializer)
 
 
 class GenreViewSet(viewsets.ModelViewSet):
@@ -24,3 +25,10 @@ class GameViewSet(viewsets.ModelViewSet):
         if self.action in ('list', 'retrieve'):
             return GameSerializer
         return GameCreateSerializer
+
+
+class NewsViewSet(viewsets.ModelViewSet):
+    queryset = News.objects.all()
+    serializer_class = NewsSerializer
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    search_fields = ['title', ]

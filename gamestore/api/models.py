@@ -28,14 +28,14 @@ class Genre(models.Model):
 class Game(models.Model):
     name = models.CharField(
         max_length=200,
-        verbose_name="Game Title"
+        verbose_name='Game Title'
     )
     description = models.TextField(
-        verbose_name="Game Description",
+        verbose_name='Game Description',
         blank=True
     )
     year = models.PositiveIntegerField(
-        verbose_name="Creation Year",
+        verbose_name='Creation Year',
         default=0,
         db_index=True
     )
@@ -46,7 +46,7 @@ class Game(models.Model):
         verbose_name='Genres'
     )
     image = models.ImageField(
-        verbose_name="Game Image",
+        verbose_name='Game Image',
         upload_to='games/',
         blank=True
     )
@@ -65,3 +65,35 @@ class Game(models.Model):
 
     class Meta:
         ordering = ['-year', ]
+
+
+class News(models.Model):
+    title = models.CharField(
+        max_length=100,
+        verbose_name='News Title',
+        blank=False,
+    )
+    post = models.TextField(
+        verbose_name='Post Description',
+        blank=False
+    )
+    post_image = models.ImageField(
+        verbose_name='Post Image',
+        upload_to='posts/',
+        blank=True
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    related_game = models.ForeignKey(
+        Game,
+        verbose_name='Related game',
+        related_name='games',
+        blank=True,
+        null=True,
+        on_delete=models.SET_NULL
+    )
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        ordering = ['-created_at', ]

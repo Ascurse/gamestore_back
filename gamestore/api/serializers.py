@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Game, Genre
+from .models import Game, Genre, News
 
 
 class GenreSerializer(serializers.ModelSerializer):
@@ -8,7 +8,6 @@ class GenreSerializer(serializers.ModelSerializer):
     class Meta:
         model = Genre
         fields = ('name', 'slug', 'color')
-        
 
 
 class GameSerializer(serializers.ModelSerializer):
@@ -27,3 +26,11 @@ class GameCreateSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ('__all__')
         model = Game
+
+
+class NewsSerializer(serializers.ModelSerializer):
+    related_game = GameSerializer(read_only=True, many=False)
+
+    class Meta:
+        fields = ('__all__')
+        model = News
